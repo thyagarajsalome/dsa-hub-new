@@ -315,11 +315,21 @@ body {
   background: #0a0f14;
   border-bottom: 1px solid var(--border);
 }
-.code-lang {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.code-lang-select {
+  background: var(--bg2);
+  border: 1px solid var(--border);
   color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+.code-lang-select:hover {
+  border-color: var(--accent);
 }
 .code-btn {
   background: var(--bg3);

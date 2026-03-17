@@ -3,35 +3,60 @@
 
 const Pages = (() => {
 
-  function showCode(title, code) {
-    document.getElementById('modalTitle').textContent = title + ' — C Implementation';
-    document.getElementById('modalCode').innerHTML = syntaxHighlight(code);
+  function showCode(title, codeKey, lang) {
+    const langNames = { c: 'C', cpp: 'C++', js: 'JavaScript' };
+    document.getElementById('modalTitle').textContent = `${title} — ${langNames[lang]} Implementation`;
+    document.getElementById('modalCode').innerHTML = syntaxHighlight(DSA.code[codeKey][lang]);
     document.getElementById('modalOverlay').classList.add('open');
   }
 
   function syntaxHighlight(code) {
+    if (!code) return '';
     return code
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/(\/\/[^\n]*)/g,'<span class="cm">$1</span>')
       .replace(/(\/\*[\s\S]*?\*\/)/g,'<span class="cm">$1</span>')
-      .replace(/\b(int|char|float|double|void|return|if|else|while|for|break|continue|struct|typedef|NULL|include|define|malloc|free|sizeof|printf|scanf)\b/g,'<span class="kw">$1</span>')
+      // Added JS and C++ keywords to the highlight block
+      .replace(/\b(int|char|float|double|void|return|if|else|while|for|break|continue|struct|typedef|NULL|include|define|malloc|free|sizeof|printf|scanf|let|const|var|function|class|new|this|cout|cin|endl|vector|namespace|using|public|private|std|nullptr|console|log|push|pop|shift|unshift|length)\b/g,'<span class="kw">$1</span>')
       .replace(/\b([a-z_][a-z_0-9]*)\s*(?=\()/g,'<span class="fn">$1</span>')
       .replace(/\b(\d+)\b/g,'<span class="num">$1</span>')
-      .replace(/"([^"]*)"/g,'<span class="str">"$1"</span>');
+      .replace(/"([^"]*)"/g,'<span class="str">"$1"</span>')
+      .replace(/'([^']*)'/g,'<span class="str">\'$1\'</span>');
   }
 
-  function codeBlock(title, code, lang = 'C') {
+  function codeBlock(title, codeKey) {
+    const defaultLang = 'c';
+    const cCode = DSA.code[codeKey][defaultLang];
     return `
-    <div class="code-snippet">
+    <div class="code-snippet" data-key="${codeKey}">
       <div class="code-header">
-        <span class="code-lang">${lang}</span>
-        <button class="code-btn" onclick="Pages.showCode('${title}', DSA.code.${code})">
+        <select class="code-lang-select" onchange="Pages.updateCodeBlock(this, '${title}')">
+          <option value="c" selected>C</option>
+          <option value="cpp">C++</option>
+          <option value="js">JavaScript</option>
+        </select>
+        <button class="code-btn" onclick="Pages.showCode('${title}', '${codeKey}', '${defaultLang}')">
           ⊞ View Full Code
         </button>
       </div>
-      <pre>${syntaxHighlight(DSA.code[code].split('\n').slice(0,12).join('\n'))}
+      <pre class="code-preview">${syntaxHighlight(cCode.split('\n').slice(0,12).join('\n'))}
 <span class="cm">  // ... (click to view full implementation)</span></pre>
     </div>`;
+  }
+
+  function updateCodeBlock(selectElem, title) {
+    const lang = selectElem.value;
+    const container = selectElem.closest('.code-snippet');
+    const codeKey = container.dataset.key;
+    const codeStr = DSA.code[codeKey][lang];
+    
+    // Update preview block
+    const pre = container.querySelector('.code-preview');
+    pre.innerHTML = syntaxHighlight(codeStr.split('\n').slice(0,12).join('\n')) + '\n<span class="cm">  // ... (click to view full implementation)</span>';
+    
+    // Update modal button onclick event
+    const btn = container.querySelector('.code-btn');
+    btn.setAttribute('onclick', `Pages.showCode('${title}', '${codeKey}', '${lang}')`);
   }
 
   function complexityRow(chips) {
@@ -754,6 +779,6 @@ const Pages = (() => {
   return {
     home, complexity, arrays, linkedlist, stack, queue,
     trees, graphs, hashing, sorting, searching,
-    recursion, dp, heap, trie, realworld, showCode
+    recursion, dp, heap, trie, realworld, showCode, updateCodeBlock
   };
 })();
