@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DSA Hub — Master Data Structures & Algorithms</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./main.css">
+</head>
+<body>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-mark">
+      <span class="logo-bracket">{</span>
+      <span class="logo-text">DSA</span>
+      <span class="logo-bracket">}</span>
+    </div>
+    <p class="logo-sub">Hub · Learn &amp; Visualize</p>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Start Here</span>
+    <a class="nav-item active" data-page="home" href="#">⌂ Home</a>
+    <a class="nav-item" data-page="complexity" href="#">⏱ Big-O Complexity</a>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Linear Structures</span>
+    <a class="nav-item" data-page="arrays" href="#">▦ Arrays</a>
+    <a class="nav-item" data-page="linkedlist" href="#">⬡ Linked Lists</a>
+    <a class="nav-item" data-page="stack" href="#">⊟ Stacks</a>
+    <a class="nav-item" data-page="queue" href="#">⊞ Queues</a>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Non-Linear</span>
+    <a class="nav-item" data-page="trees" href="#">⑂ Trees &amp; BST</a>
+    <a class="nav-item" data-page="graphs" href="#">◎ Graphs</a>
+    <a class="nav-item" data-page="hashing" href="#"># Hashing</a>
+    <a class="nav-item" data-page="heap" href="#">△ Heaps</a>
+    <a class="nav-item" data-page="trie" href="#">✦ Tries</a>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Algorithms</span>
+    <a class="nav-item" data-page="sorting" href="#">↕ Sorting</a>
+    <a class="nav-item" data-page="searching" href="#">⌕ Searching</a>
+    <a class="nav-item" data-page="recursion" href="#">↺ Recursion</a>
+    <a class="nav-item" data-page="dp" href="#">◈ Dynamic Prog.</a>
+  </div>
+  <div class="nav-section">
+    <span class="nav-label">Capstone</span>
+    <a class="nav-item" data-page="realworld" href="#">⊕ Real World Uses</a>
+  </div>
+  <div class="sidebar-footer">
+    <span class="progress-label">Progress</span>
+    <div class="progress-track"><div class="progress-fill" id="globalProgress" style="width:0%"></div></div>
+    <span class="progress-pct" id="progressPct">0 / 13 topics</span>
+  </div>
+</nav>
+
+<button class="hamburger" id="hamburger">☰</button>
+
+<main class="main-content" id="mainContent"></main>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="code-modal" id="codeModal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">C Code</span>
+      <div class="modal-actions">
+        <button class="btn-copy" id="btnCopy">⎘ Copy</button>
+        <button class="btn-close" id="btnClose">✕</button>
+      </div>
+    </div>
+    <pre class="modal-code" id="modalCode"></pre>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="visualizer.js"></script>
+<script src="pages.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
